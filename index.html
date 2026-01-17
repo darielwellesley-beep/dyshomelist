@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>DERNREANG 2K26</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+
+body{
+  background:#050505;
+  color:#fff;
+  font-family:'Orbitron', Arial, Helvetica, sans-serif;
+  overflow:hidden;
+  text-align:center;
+}
+
+/* ===== BACKGROUND (GREY TONE) ===== */
+#bg{
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at center,#1a1a1a 0%,#000 85%);
+  z-index:-6;
+}
+
+/* Grid พื้นหลังสีเทาจางๆ */
+#grid{
+  position:fixed;
+  left:-50%;right:-50%;
+  bottom:-25%;
+  height:80%;
+  background:
+    linear-gradient(#ffffff08 1px, transparent 1px),
+    linear-gradient(90deg,#ffffff08 1px, transparent 1px);
+  background-size:50px 50px;
+  transform:perspective(1000px) rotateX(65deg);
+  transform-origin:bottom center;
+  mask-image:linear-gradient(to top,transparent 0%,black 60%);
+  opacity:0.6;
+  z-index:-4;
+}
+
+/* ===== SNOW (WHITE) ===== */
+#snowCanvas{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-3;
+  opacity: 0.7;
+}
+
+/* ===== TOP BAR ===== */
+.topbar{
+  position:fixed;
+  top:20px;left:20px;right:20px;
+  height:60px;
+  border-radius:15px;
+  background:rgba(255, 255, 255, 0.05);
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255, 255, 255, 0.1);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 20px;
+  z-index:10;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:14px;
+  letter-spacing:1px;
+  color: #ccc;
+}
+.dot{
+    width: 8px; height: 8px; background: #fff; border-radius: 50%;
+    box-shadow: 0 0 10px #fff;
+}
+
+/* ===== MAIN CONTENT ===== */
+main{
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    z-index:5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ===== LOGO BADGE (ขาว ขอบดำ) ===== */
+.logo-container {
+    background: #ffffff; /* พื้นหลังสีขาว */
+    border: 5px solid #000000; /* ขอบสีดำ */
+    border-radius: 20px; /* มุมมนนิดหน่อย */
+    padding: 20px 40px;
+    display: inline-block;
+    margin-bottom: 40px;
+    box-shadow: 0 0 50px rgba(255, 255, 255, 0.15); /* แสงฟุ้งสีขาวจางๆ ด้านหลัง */
+    transition: transform 0.3s;
+}
+
+.logo-container:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 70px rgba(255, 255, 255, 0.25);
+}
+
+.logo-img {
+    max-width: 300px; /* ปรับขนาดโลโก้ */
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 5px 5px rgba(0,0,0,0.2));
+}
+
+/* ===== BUTTONS (GREY STYLE) ===== */
+.buttons{
+  display:flex;
+  justify-content:center;
+  gap:30px;
+  flex-wrap: wrap;
+}
+.buttons a{
+  padding:18px 60px;
+  border-radius:5px; /* เหลี่ยมขึ้นนิดนึงให้ดูดุดัน */
+  letter-spacing:4px;
+  text-decoration:none;
+  border:1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter:blur(5px);
+  color:#ccc;
+  font-weight:800;
+  font-size: 14px;
+  transition:all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* เอฟเฟกต์ปุ่มตอนชี้ */
+.buttons a:hover{
+  background:#fff;
+  color:#000;
+  border-color:#fff;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+}
+
+/* ===== FOOTER BAR ===== */
+.footer-bar {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 20;
+}
+
+.contact, .player {
+    padding: 12px 30px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(20, 20, 20, 0.8);
+    backdrop-filter: blur(10px);
+    color: #fff;
+    font-size: 12px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.3s;
+    font-weight: 700;
+}
+
+.contact:hover, .player:hover {
+    background: #fff;
+    color: #000;
+}
+
+.copyright {
+    position: fixed;
+    bottom: 5px;
+    width: 100%;
+    text-align: center;
+    font-size: 10px;
+    color: #555;
+    z-index: 10;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .logo-img { max-width: 220px; }
+    .buttons a { padding: 15px 40px; width: 80%; }
+    .buttons { flex-direction: column; align-items: center; gap: 15px; }
+    .footer-bar { justify-content: center; gap: 10px; }
+    .contact, .player { padding: 10px 20px; font-size: 10px; }
+}
+</style>
+</head>
+
+<body>
+
+<iframe id="yt"
+src="https://www.youtube.com/embed/bTfU8zFLj74?enablejsapi=1&mute=1&loop=1&playlist=bTfU8zFLj74&controls=0"
+allow="autoplay"
+style="display:none"></iframe>
+
+<canvas id="snowCanvas"></canvas>
+<div id="bg"></div>
+<div id="grid"></div>
+
+<div class="topbar">
+  <div class="brand">
+    <div class="dot"></div>
+    <span>DERNREANG 2K26</span>
+  </div>
+  <div class="brand" style="opacity: 0.5;">
+    EST. 2026
+  </div>
+</div>
+
+<main>
+  <div class="logo-container">
+      <img src="https://img2.pic.in.th/a479b75c-4908-4b85-82ea-92707086f4cf.png" alt="DERNREANG LOGO" class="logo-img">
+  </div>
+
+  <div class="buttons">
+    <a href="https://mylist-dernreang.netlify.app/" target="_blank">ENTER SITE</a>
+    <a href="https://www.facebook.com/ssssssz168" target="_blank">CONTACT</a>
+  </div>
+</main>
+
+<div class="footer-bar">
+    <a class="contact" href="https://www.facebook.com/ssssssz168" target="_blank">FACEBOOK</a>
+    <div class="player" id="musicBtn">▶ PLAY MUSIC</div>
+</div>
+
+<div class="copyright">© 2026 DERNREANG. ALL RIGHTS RESERVED.</div>
+
+<script>
+/* ===== MUSIC CONTROL ===== */
+const yt=document.getElementById("yt");
+const btn=document.getElementById("musicBtn");
+let playing=false;
+
+btn.onclick=()=>{
+  if(!playing){
+    yt.src += "&autoplay=1";
+    yt.src = yt.src.replace("mute=1","mute=0");
+    btn.textContent="⏸ PAUSE";
+    btn.style.background = "#fff";
+    btn.style.color = "#000";
+    playing=true;
+  }else{
+    yt.src = yt.src.replace("mute=0","mute=1");
+    btn.textContent="▶ PLAY MUSIC";
+    btn.style.background = "rgba(20, 20, 20, 0.8)";
+    btn.style.color = "#fff";
+    playing=false;
+  }
+};
+
+/* ===== SNOW EFFECT (Grey/White) ===== */
+const canvas=document.getElementById("snowCanvas");
+const ctx=canvas.getContext("2d");
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight}
+window.onresize=resize;resize();
+
+const snow=[...Array(100)].map(()=>({
+  x:Math.random()*canvas.width,
+  y:Math.random()*canvas.height,
+  r:Math.random()*1.5+0.5,
+  s:Math.random()*0.5+0.2
+}));
+
+function drawSnow(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="rgba(200, 200, 200, 0.6)"; // สีหิมะเทาอ่อนๆ ไม่แยงตา
+  ctx.beginPath();
+  snow.forEach(p=>{
+    ctx.moveTo(p.x,p.y);
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    p.y+=p.s;
+    if(p.y>canvas.height){p.y=0;p.x=Math.random()*canvas.width}
+  });
+  ctx.fill();
+  requestAnimationFrame(drawSnow);
+}
+drawSnow();
+</script>
+
+</body>
+</html>
