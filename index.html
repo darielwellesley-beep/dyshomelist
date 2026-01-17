@@ -158,12 +158,12 @@ main{
     left: 20px;
     right: 20px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* จัดกึ่งกลางเพราะเหลือปุ่มเดียว */
     align-items: center;
     z-index: 20;
 }
 
-.contact, .player {
+.contact {
     padding: 12px 30px;
     border-radius: 30px;
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -178,7 +178,7 @@ main{
     font-weight: 700;
 }
 
-.contact:hover, .player:hover {
+.contact:hover {
     background: #fff;
     color: #000;
 }
@@ -198,8 +198,7 @@ main{
     .logo-img { max-width: 220px; }
     .buttons a { padding: 15px 40px; width: 80%; }
     .buttons { flex-direction: column; align-items: center; gap: 15px; }
-    .footer-bar { justify-content: center; gap: 10px; }
-    .contact, .player { padding: 10px 20px; font-size: 10px; }
+    .contact { padding: 10px 20px; font-size: 10px; }
 }
 </style>
 </head>
@@ -207,7 +206,7 @@ main{
 <body>
 
 <iframe id="yt"
-src="https://www.youtube.com/embed/bTfU8zFLj74?enablejsapi=1&mute=1&loop=1&playlist=bTfU8zFLj74&controls=0"
+src="https://www.youtube.com/embed/bTfU8zFLj74?enablejsapi=1&mute=0&loop=1&playlist=bTfU8zFLj74&autoplay=1&controls=0"
 allow="autoplay"
 style="display:none"></iframe>
 
@@ -231,41 +230,18 @@ style="display:none"></iframe>
   </div>
 
   <div class="buttons">
-    <a href="https://mylist-dernreang.netlify.app/" target="_blank">ENTER LIST</a>
-    <a href="https://https://www.facebook.com/tail.kodomo" target="_blank">CONTACT</a>
+    <a href="https://darielwellesley-beep.github.io/dyshomelistname/" target="_blank">ENTER LIST</a>
+    <a href="https://www.facebook.com/tail.kodomo" target="_blank">CONTACT</a>
   </div>
 </main>
 
 <div class="footer-bar">
     <a class="contact" href="https://discord.gg/9zuCWNfMnA" target="_blank">MYLISTSHOP</a>
-    <div class="player" id="musicBtn">▶ PLAY MUSIC</div>
 </div>
 
 <div class="copyright">© 2026 DERNYOUNGSAY. REAL MEMBER | Designed by MylistShop.</div>
 
 <script>
-/* ===== MUSIC CONTROL ===== */
-const yt=document.getElementById("yt");
-const btn=document.getElementById("musicBtn");
-let playing=false;
-
-btn.onclick=()=>{
-  if(!playing){
-    yt.src += "&autoplay=1";
-    yt.src = yt.src.replace("mute=1","mute=0");
-    btn.textContent="⏸ PAUSE";
-    btn.style.background = "#fff";
-    btn.style.color = "#000";
-    playing=true;
-  }else{
-    yt.src = yt.src.replace("mute=0","mute=1");
-    btn.textContent="▶ PLAY MUSIC";
-    btn.style.background = "rgba(20, 20, 20, 0.8)";
-    btn.style.color = "#fff";
-    playing=false;
-  }
-};
-
 /* ===== SNOW EFFECT (Grey/White) ===== */
 const canvas=document.getElementById("snowCanvas");
 const ctx=canvas.getContext("2d");
